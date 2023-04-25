@@ -27,7 +27,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    protected @NotNull WrappedTask scheduleTask(@NotNull TaskDetails<P> details) {
+    @NotNull
+    public WrappedTask scheduleTask(@NotNull TaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -44,7 +45,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    protected @NotNull WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details) {
+    @NotNull
+    public WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -61,7 +63,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    protected @NotNull <E extends Entity> WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details) {
+    @NotNull
+    public <E extends Entity> WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -78,7 +81,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    protected @NotNull WrappedTask scheduleLocationTask(LocationTaskDetails<P> details) {
+    @NotNull
+    public WrappedTask scheduleLocationTask(LocationTaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 

@@ -21,8 +21,8 @@ public abstract class TaskScheduler<P extends Plugin> {
         return this.plugin;
     }
 
-    protected abstract @NotNull WrappedTask scheduleTask(@NotNull TaskDetails<P> details);
-    protected abstract @NotNull WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details);
-    protected abstract <E extends Entity> @NotNull WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details);
-    protected abstract @NotNull WrappedTask scheduleLocationTask(LocationTaskDetails<P> details);
+    public abstract @NotNull WrappedTask scheduleTask(@NotNull TaskDetails<P> details);
+    public abstract @NotNull WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details);
+    public abstract <E extends Entity> @NotNull WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details);
+    public abstract @NotNull WrappedTask scheduleLocationTask(LocationTaskDetails<P> details);
 }

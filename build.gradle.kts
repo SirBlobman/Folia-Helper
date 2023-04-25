@@ -1,6 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
 
-val apiVersion = fetchProperty("version.api", "invalid")
+version = fetchProperty("version.api", "invalid")
 val mavenUsername = fetchEnv("MAVEN_DEPLOY_USR", "mavenUsernameSirBlobman", "")
 val mavenPassword = fetchEnv("MAVEN_DEPLOY_PSW", "mavenPasswordSirBlobman", "")
 
@@ -36,7 +36,6 @@ java {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
     withSourcesJar()
-    withJavadocJar()
 }
 
 repositories {
@@ -73,7 +72,6 @@ publishing {
         create<MavenPublication>("maven") {
             groupId = "com.github.sirblobman.api"
             artifactId = "folia-helper"
-            version = apiVersion
             artifact(tasks["shadowJar"])
             artifact(tasks["sourcesJar"])
         }
@@ -96,10 +94,12 @@ tasks {
     }
 
     named<Jar>("sourcesJar") {
+        archiveBaseName.set("Folia-Helper")
         from(files("abstract/src/main/java"))
     }
 
     named<ShadowJar>("shadowJar") {
+        archiveBaseName.set("Folia-Helper")
         archiveClassifier.set(null as String?)
     }
 

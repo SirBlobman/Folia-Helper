@@ -6,7 +6,6 @@ pipeline {
     }
 
     environment {
-        DISCORD_URL = credentials('PUBLIC_DISCORD_WEBHOOK')
         MAVEN_DEPLOY = credentials('MAVEN_DEPLOY')
     }
 

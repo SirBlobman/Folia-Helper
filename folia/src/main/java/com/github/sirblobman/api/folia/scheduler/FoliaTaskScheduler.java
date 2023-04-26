@@ -33,7 +33,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         Long period = details.getPeriod();
 
         if (period != null) {
-            long realDelay = (delay == null ? 0L : delay);
+            long realDelay = (delay == null ? 1L : delay);
             return scheduleTaskTimer(details, realDelay, period);
         }
 
@@ -51,7 +51,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         Long period = details.getPeriod();
 
         if (period != null) {
-            long realDelay = (delay == null ? 0L : delay);
+            long realDelay = (delay == null ? 1L : delay);
             return scheduleTaskTimerAsync(details, realDelay, period);
         }
 
@@ -69,7 +69,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         Long period = details.getPeriod();
 
         if (period != null) {
-            long realDelay = (delay == null ? 0L : delay);
+            long realDelay = (delay == null ? 1L : delay);
             return scheduleTaskTimer(details, realDelay, period);
         }
 
@@ -87,7 +87,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         Long period = details.getPeriod();
 
         if (period != null) {
-            long realDelay = (delay == null ? 0L : delay);
+            long realDelay = (delay == null ? 1L : delay);
             return scheduleTaskTimer(details, realDelay, period);
         }
 

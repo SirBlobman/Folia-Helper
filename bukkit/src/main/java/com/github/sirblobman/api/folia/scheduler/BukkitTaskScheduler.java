@@ -21,8 +21,7 @@ public class BukkitTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleTask(@NotNull TaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleTask(@NotNull TaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -39,8 +38,7 @@ public class BukkitTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -57,8 +55,7 @@ public class BukkitTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public <E extends Entity> WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details) {
+    public <E extends Entity> @NotNull WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -75,8 +72,7 @@ public class BukkitTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleLocationTask(LocationTaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleLocationTask(LocationTaskDetails<P> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 

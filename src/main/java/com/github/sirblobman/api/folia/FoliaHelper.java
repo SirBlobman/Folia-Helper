@@ -10,24 +10,24 @@ import com.github.sirblobman.api.folia.scheduler.BukkitTaskScheduler;
 import com.github.sirblobman.api.folia.scheduler.FoliaTaskScheduler;
 import com.github.sirblobman.api.folia.scheduler.TaskScheduler;
 
-public final class FoliaHelper<P extends Plugin> {
-    private final P plugin;
+public final class FoliaHelper {
+    private final Plugin plugin;
 
     private Boolean foliaSupported;
-    private TaskScheduler<P> scheduler;
+    private TaskScheduler scheduler;
 
-    public FoliaHelper(@NotNull P plugin) {
+    public FoliaHelper(@NotNull Plugin plugin) {
         this.plugin = plugin;
         this.foliaSupported = null;
         this.scheduler = null;
     }
 
-    private @NotNull P getPlugin() {
+    private @NotNull Plugin getPlugin() {
         return this.plugin;
     }
 
     private @NotNull Logger getLogger() {
-        P plugin = getPlugin();
+        Plugin plugin = getPlugin();
         return plugin.getLogger();
     }
 
@@ -50,16 +50,16 @@ public final class FoliaHelper<P extends Plugin> {
         }
     }
 
-    public @NotNull TaskScheduler<P> getScheduler() {
+    public @NotNull TaskScheduler getScheduler() {
         if (this.scheduler != null) {
             return this.scheduler;
         }
 
-        P plugin = getPlugin();
+        Plugin plugin = getPlugin();
         if (isFolia()) {
-            this.scheduler = new FoliaTaskScheduler<>(plugin);
+            this.scheduler = new FoliaTaskScheduler(plugin);
         } else {
-            this.scheduler = new BukkitTaskScheduler<>(plugin);
+            this.scheduler = new BukkitTaskScheduler(plugin);
         }
 
         return this.scheduler;

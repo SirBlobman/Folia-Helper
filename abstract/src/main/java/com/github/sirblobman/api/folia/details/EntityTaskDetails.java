@@ -8,10 +8,10 @@ import org.jetbrains.annotations.Nullable;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.Plugin;
 
-public abstract class EntityTaskDetails<P extends Plugin, E extends Entity> extends AbstractTaskDetails<P> {
+public abstract class EntityTaskDetails<E extends Entity> extends AbstractTaskDetails {
     private final WeakReference<E> entityReference;
 
-    public EntityTaskDetails(@NotNull P plugin, @NotNull E entity) {
+    public EntityTaskDetails(@NotNull Plugin plugin, @NotNull E entity) {
         super(plugin);
         this.entityReference = new WeakReference<>(entity);
     }

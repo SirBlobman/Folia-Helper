@@ -7,22 +7,22 @@ import org.bukkit.plugin.Plugin;
 
 import com.github.sirblobman.api.folia.task.WrappedTask;
 
-public abstract class AbstractTaskDetails<P extends Plugin> {
-    private final P plugin;
+public abstract class AbstractTaskDetails {
+    private final Plugin plugin;
 
     private Long delay;
     private Long period;
 
     private WrappedTask task;
 
-    public AbstractTaskDetails(@NotNull P plugin) {
+    public AbstractTaskDetails(@NotNull Plugin plugin) {
         this.plugin = plugin;
         this.delay = null;
         this.period = null;
         this.task = null;
     }
 
-    public final @NotNull P getPlugin() {
+    public final @NotNull Plugin getPlugin() {
         return this.plugin;
     }
 

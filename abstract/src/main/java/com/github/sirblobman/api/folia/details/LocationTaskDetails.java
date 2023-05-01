@@ -8,10 +8,10 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.plugin.Plugin;
 
-public abstract class LocationTaskDetails<P extends Plugin> extends AbstractTaskDetails<P> {
+public abstract class LocationTaskDetails extends AbstractTaskDetails {
     private final @NotNull Location location;
 
-    public LocationTaskDetails(@NotNull P plugin, @NotNull Location location) {
+    public LocationTaskDetails(@NotNull Plugin plugin, @NotNull Location location) {
         super(plugin);
 
         World world = location.getWorld();

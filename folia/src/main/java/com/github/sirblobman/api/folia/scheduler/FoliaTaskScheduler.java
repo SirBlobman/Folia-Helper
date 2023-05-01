@@ -21,14 +21,13 @@ import com.github.sirblobman.api.folia.details.TaskDetails;
 import com.github.sirblobman.api.folia.task.WrappedFoliaTask;
 import com.github.sirblobman.api.folia.task.WrappedTask;
 
-public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
-    public FoliaTaskScheduler(@NotNull P plugin) {
+public class FoliaTaskScheduler extends TaskScheduler {
+    public FoliaTaskScheduler(@NotNull Plugin plugin) {
         super(plugin);
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleTask(@NotNull TaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleTask(@NotNull TaskDetails details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -45,8 +44,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleAsyncTask(@NotNull TaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleAsyncTask(@NotNull TaskDetails details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -63,8 +61,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public <E extends Entity> WrappedTask scheduleEntityTask(EntityTaskDetails<P, E> details) {
+    public <E extends Entity> @NotNull WrappedTask scheduleEntityTask(EntityTaskDetails<E> details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -81,8 +78,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     @Override
-    @NotNull
-    public WrappedTask scheduleLocationTask(LocationTaskDetails<P> details) {
+    public @NotNull WrappedTask scheduleLocationTask(LocationTaskDetails details) {
         Long delay = details.getDelay();
         Long period = details.getPeriod();
 
@@ -99,7 +95,7 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
     private @NotNull Server getServer() {
-        P plugin = getPlugin();
+        Plugin plugin = getPlugin();
         return plugin.getServer();
     }
 
@@ -122,35 +118,35 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         return entity.getScheduler();
     }
 
-    private @NotNull WrappedTask wrap(@NotNull AbstractTaskDetails<P> details, @NotNull ScheduledTask task) {
+    private @NotNull WrappedTask wrap(@NotNull AbstractTaskDetails details, @NotNull ScheduledTask task) {
         WrappedTask wrapped = new WrappedFoliaTask(task);
         details.setTask(wrapped);
         return wrapped;
     }
 
-    private @NotNull WrappedTask scheduleTaskTimer(@NotNull TaskDetails<P> details, long delay, long period) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskTimer(@NotNull TaskDetails details, long delay, long period) {
+        Plugin plugin = getPlugin();
         GlobalRegionScheduler scheduler = getGlobalRegionScheduler();
         ScheduledTask scheduled = scheduler.runAtFixedRate(plugin, unused -> details.run(), delay, period);
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskDelayed(@NotNull TaskDetails<P> details, long delay) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskDelayed(@NotNull TaskDetails details, long delay) {
+        Plugin plugin = getPlugin();
         GlobalRegionScheduler scheduler = getGlobalRegionScheduler();
         ScheduledTask scheduled = scheduler.runDelayed(plugin, unused -> details.run(), delay);
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskSingle(@NotNull TaskDetails<P> details) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskSingle(@NotNull TaskDetails details) {
+        Plugin plugin = getPlugin();
         GlobalRegionScheduler scheduler = getGlobalRegionScheduler();
         ScheduledTask scheduled = scheduler.run(plugin, unused -> details.run());
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskTimerAsync(@NotNull TaskDetails<P> details, long delay, long period) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskTimerAsync(@NotNull TaskDetails details, long delay, long period) {
+        Plugin plugin = getPlugin();
         AsyncScheduler scheduler = getAsyncScheduler();
 
         long delayMillis = (delay * 50L);
@@ -160,8 +156,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskDelayedAsync(@NotNull TaskDetails<P> details, long delay) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskDelayedAsync(@NotNull TaskDetails details, long delay) {
+        Plugin plugin = getPlugin();
         AsyncScheduler scheduler = getAsyncScheduler();
 
         long delayMillis = (delay * 50L);
@@ -170,16 +166,16 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskSingleAsync(@NotNull TaskDetails<P> details) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskSingleAsync(@NotNull TaskDetails details) {
+        Plugin plugin = getPlugin();
         AsyncScheduler scheduler = getAsyncScheduler();
         ScheduledTask scheduled = scheduler.runNow(plugin, unused -> details.run());
         return wrap(details, scheduled);
     }
 
-    private @NotNull <E extends Entity> WrappedTask scheduleTaskTimer(@NotNull EntityTaskDetails<P, E> details,
+    private @NotNull <E extends Entity> WrappedTask scheduleTaskTimer(@NotNull EntityTaskDetails<E> details,
                                                                       long delay, long period) {
-        P plugin = getPlugin();
+        Plugin plugin = getPlugin();
         E entity = details.getEntity();
         if (entity == null) {
             throw new IllegalStateException("The entity for this task has already been removed.");
@@ -194,9 +190,9 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         return wrap(details, scheduled);
     }
 
-    private @NotNull <E extends Entity> WrappedTask scheduleTaskDelayed(@NotNull EntityTaskDetails<P, E> details,
+    private @NotNull <E extends Entity> WrappedTask scheduleTaskDelayed(@NotNull EntityTaskDetails<E> details,
                                                                         long delay) {
-        P plugin = getPlugin();
+        Plugin plugin = getPlugin();
         E entity = details.getEntity();
         if (entity == null) {
             throw new IllegalStateException("The entity for this task has already been removed.");
@@ -212,8 +208,8 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
     }
 
 
-    private @NotNull <E extends Entity> WrappedTask scheduleTaskSingle(@NotNull EntityTaskDetails<P, E> details) {
-        P plugin = getPlugin();
+    private @NotNull <E extends Entity> WrappedTask scheduleTaskSingle(@NotNull EntityTaskDetails<E> details) {
+        Plugin plugin = getPlugin();
         E entity = details.getEntity();
         if (entity == null) {
             throw new IllegalStateException("The entity for this task has already been removed.");
@@ -228,24 +224,24 @@ public class FoliaTaskScheduler<P extends Plugin> extends TaskScheduler<P> {
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskTimer(@NotNull LocationTaskDetails<P> details, long delay, long period) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskTimer(@NotNull LocationTaskDetails details, long delay, long period) {
+        Plugin plugin = getPlugin();
         Location location = details.getLocation();
         RegionScheduler scheduler = getRegionScheduler();
         ScheduledTask scheduled = scheduler.runAtFixedRate(plugin, location, unused -> details.run(), delay, period);
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskDelayed(@NotNull LocationTaskDetails<P> details, long delay) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskDelayed(@NotNull LocationTaskDetails details, long delay) {
+        Plugin plugin = getPlugin();
         Location location = details.getLocation();
         RegionScheduler scheduler = getRegionScheduler();
         ScheduledTask scheduled = scheduler.runDelayed(plugin, location, unused -> details.run(), delay);
         return wrap(details, scheduled);
     }
 
-    private @NotNull WrappedTask scheduleTaskSingle(@NotNull LocationTaskDetails<P> details) {
-        P plugin = getPlugin();
+    private @NotNull WrappedTask scheduleTaskSingle(@NotNull LocationTaskDetails details) {
+        Plugin plugin = getPlugin();
         Location location = details.getLocation();
         RegionScheduler scheduler = getRegionScheduler();
         ScheduledTask scheduled = scheduler.run(plugin, location, unused -> details.run());

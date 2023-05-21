@@ -1,13 +1,12 @@
 package com.github.sirblobman.api.folia;
 
+import java.lang.reflect.Constructor;
 import java.util.logging.Logger;
 
 import org.jetbrains.annotations.NotNull;
 
 import org.bukkit.plugin.Plugin;
 
-import com.github.sirblobman.api.folia.scheduler.BukkitTaskScheduler;
-import com.github.sirblobman.api.folia.scheduler.FoliaTaskScheduler;
 import com.github.sirblobman.api.folia.scheduler.TaskScheduler;
 
 public final class FoliaHelper {
@@ -55,16 +54,20 @@ public final class FoliaHelper {
             return this.scheduler;
         }
 
-        if (isFolia()) {
-            try {
-                this.scheduler = new FoliaTaskScheduler(plugin);
-                return this.scheduler;
-            } catch (UnsupportedClassVersionError ignored) {
-                // Ignored error.
-            }
-        }
+        String basePackage = "com.github.sirblobman.api.folia.scheduler";
+        String classSimpleName = (isFolia() ? "FoliaTaskScheduler" : "BukkitTaskScheduler");
+        String className = (basePackage + "." + classSimpleName);
 
-        this.scheduler = new BukkitTaskScheduler(plugin);
-        return this.scheduler;
+        try {
+            Class<?> schedulerClass = Class.forName(className);
+            Constructor<?> constructor = schedulerClass.getConstructor(Plugin.class);
+
+            Plugin plugin = getPlugin();
+            Object instance = constructor.newInstance(plugin);
+            this.scheduler = (TaskScheduler) instance;
+            return this.scheduler;
+        } catch (ReflectiveOperationException ex) {
+            throw new IllegalStateException("Missing class '" + className + "'.", ex);
+        }
     }
 }

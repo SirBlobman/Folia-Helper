@@ -55,13 +55,16 @@ public final class FoliaHelper {
             return this.scheduler;
         }
 
-        Plugin plugin = getPlugin();
         if (isFolia()) {
-            this.scheduler = new FoliaTaskScheduler(plugin);
-        } else {
-            this.scheduler = new BukkitTaskScheduler(plugin);
+            try {
+                this.scheduler = new FoliaTaskScheduler(plugin);
+                return this.scheduler;
+            } catch (UnsupportedClassVersionError ignored) {
+                // Ignored error.
+            }
         }
 
+        this.scheduler = new BukkitTaskScheduler(plugin);
         return this.scheduler;
     }
 }

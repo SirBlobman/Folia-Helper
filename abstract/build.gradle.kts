@@ -15,12 +15,8 @@ repositories {
 }
 
 dependencies {
-    // Java Dependencies
-    compileOnly("org.jetbrains:annotations:24.0.1")
-
     // Spigot API
-    val spigotVersion = findProperty("spigot.version")
-    compileOnly("org.spigotmc:spigot-api:$spigotVersion")
+    compileOnly("org.spigotmc:spigot-api:1.12.2-R0.1-SNAPSHOT")
 }
 
 tasks {

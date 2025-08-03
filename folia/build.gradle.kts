@@ -10,19 +10,15 @@ java {
 
 repositories {
     mavenCentral()
-    maven("https://papermc.io/repo/repository/maven-public/") // PaperMC Repository
+    maven("https://repo.papermc.io/repository/maven-public/") // PaperMC Repository
 }
 
 dependencies {
     // Local Dependencies
     compileOnly(project(":abstract"))
 
-    // Java Dependencies
-    compileOnly("org.jetbrains:annotations:24.0.1")
-
     // Folia API
-    val foliaVersion = findProperty("folia.version")
-    compileOnly("dev.folia:folia-api:$foliaVersion")
+    compileOnly("dev.folia:folia-api:1.19.4-R0.1-SNAPSHOT")
 }
 
 tasks {
